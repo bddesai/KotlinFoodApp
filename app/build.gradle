@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -23,6 +21,10 @@ android {
 }
 
 dependencies {
+    def anko_version = "0.10.4"
+    def glide_version= "4.5.0"
+    def retrofit_version = "2.3.0"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.0.2'
@@ -32,18 +34,24 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
+    // location
+    compile "com.google.android.gms:play-services-location:11.8.0"
+    kapt "com.google.android.gms:play-services-location:11.8.0"
+
     // retrofit
-    compile "com.squareup.retrofit2:retrofit:2.3.0"
-    compile "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
-    compile "com.squareup.retrofit2:converter-gson:2.3.0"
+    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
     // rxandroid
     compile "io.reactivex.rxjava2:rxandroid:2.0.1"
     // Anko
-    compile "org.jetbrains.anko:anko:0.10.4"
+    compile "org.jetbrains.anko:anko:$anko_version"
+    compile "org.jetbrains.anko:anko-commons:$anko_version"
+    compile "org.jetbrains.anko:anko-design:$anko_version"
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.5.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
 }

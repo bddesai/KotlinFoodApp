@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">KotlinFoodApp</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="service_error_message">Error Loading Data...</string>
+    <string name="service_error_message">Error Loading Data…</string>
     <string name="empty_fields_error">Both the fields are mandatory</string>
     <string name="select_cuisine_hint">Select Cuisine</string>
     <string name="select_location_hint">Enter Location</string>
+    <string name="fetch_location_error">Couldn\'t get the location. Make sure location is enabled on the device</string>
+    <string name="provider_disabled_text">Please Enable GPS and Internet</string>
+    <string name="permissions_not_granted">Location Permissions are not granted</string>
 </resources>

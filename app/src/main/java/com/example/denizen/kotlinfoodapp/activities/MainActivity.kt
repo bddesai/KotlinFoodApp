@@ -63,4 +63,30 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+
+    fun fetchBusinesses(cuisine: String, latitude: String, longitude: String) {
+
+        if(Constants.isReallyNull(cuisine) || Constants.isReallyNull(latitude) || Constants.isReallyNull(longitude)){
+            alert(getString(R.string.fetch_location_error), ""){ yesButton {} }.show()
+            return
+        }
+
+        val apiService: ApiClient = ApiClient.create()
+        var call: Call<BusinessResponse> = apiService.getBusinessesByCoordinates(cuisine, latitude, longitude)
+
+        call.enqueue(object : Callback<BusinessResponse> {
+            override fun onResponse(call: Call<BusinessResponse>, response: Response<BusinessResponse>) {
+                val businessList = response.body()!!.businesses
+                restaurantList.adapter = RestaurantListAdapter(this@MainActivity, businessList)
+            }
+
+            override fun onFailure(call: Call<BusinessResponse>, t: Throwable) {
+                // Log error here since request failed
+                Log.e(TAG, t.toString())
+                toast(R.string.service_error_message)
+            }
+        })
+
+    }
+
 }

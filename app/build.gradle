@@ -38,6 +38,9 @@ dependencies {
     compile "com.google.android.gms:play-services-location:11.8.0"
     kapt "com.google.android.gms:play-services-location:11.8.0"
 
+    // okhttp
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
+
     // retrofit
     compile "com.squareup.retrofit2:retrofit:$retrofit_version"
     compile "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"

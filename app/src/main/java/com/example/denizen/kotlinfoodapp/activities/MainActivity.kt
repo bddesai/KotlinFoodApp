@@ -1,11 +1,14 @@
 package com.example.denizen.kotlinfoodapp.activities
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.example.denizen.kotlinfoodapp.R
 import com.example.denizen.kotlinfoodapp.adapters.RestaurantListAdapter
 import com.example.denizen.kotlinfoodapp.model.BusinessResponse
@@ -17,6 +20,7 @@ import org.jetbrains.anko.yesButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
     private  var TAG : String = this@MainActivity::class.java.simpleName
@@ -36,7 +40,15 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener{
             fetchBusinesses(text_cuisine.text.toString(),
                     text_location.text.toString()
-                    )}
+            )}
+
+        val permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 1)
+        }
     }
 
     fun fetchBusinesses(cuisine: String, location: String) {
@@ -47,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val apiService: ApiClient = ApiClient.create()
-        var call: Call<BusinessResponse> = apiService.getBusinessesByLocation(cuisine,location)
+        var call: Call<BusinessResponse> = apiService.getBusinessesByLocation(cuisine, location)
 
         call.enqueue(object : Callback<BusinessResponse> {
             override fun onResponse(call: Call<BusinessResponse>, response: Response<BusinessResponse>) {
